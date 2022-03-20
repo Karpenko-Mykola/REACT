@@ -1,0 +1,37 @@
+.wrapper{
+	width: 890px;
+}
+
+.content_img{
+	width: 100%;
+	height: 200px;
+}
+
+.person{
+	display: flex;
+	margin-top: 20px;
+}
+
+.person_ava{
+	width: 200px;
+	height: 200px;
+}
+
+.person_descr{
+	margin-left: 50px;
+}
+
+.person_descr_name{
+	margin-top: 0;
+	color: #2b2827;
+}
+
+.person_descr_info{
+	margin: 0;
+	padding: 0;
+	color: #2b2827 ;
+}
+
+.person_descr_info{
+	color: #2b2827 ;
+}

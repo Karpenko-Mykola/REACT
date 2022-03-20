@@ -1,0 +1,10 @@
+.wrapper{
+	width: 1200px;
+	margin: 0 auto;
+
+}
+
+.content_wrapper{
+	display: flex;
+	justify-content: space-between;
+}
