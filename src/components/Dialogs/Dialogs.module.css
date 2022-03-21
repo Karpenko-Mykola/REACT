@@ -1,0 +1,8 @@
+.wrapper{
+	border: 1px solid blue;
+	width: 880px;
+}
+
+.wrapper h1{
+	text-align: center;
+}
