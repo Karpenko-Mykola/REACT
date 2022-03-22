@@ -15,8 +15,8 @@ const App = () => {
     		<div className = {style.content_wrapper}>
     			<Sidebar/>
     			<Routes>
-    				<Route path ='/profile' element = {<Content/>} />	
-    				<Route path ='/dialogs' element = {<Dialogs/>} />	
+    				<Route path ='/profile/*' element = {<Content/>} />	
+    				<Route path ='/dialogs/*' element = {<Dialogs/>} />	
     			</Routes>
    			</div>
     	</div>

@@ -8,9 +8,7 @@ const MyPosts = () =>{
  		<h3 className = {style.header}>My Posts</h3>
  		<input className = {style.input} type="text" placeholder = 'your news...'/>
  		<div className = {style.btn}>Send</div> 
- 		<Post message = "Hello"/>
- 		<Post message = "How are you"/>
- 		<Post message = "All right"/>
+ 		<Post />
 
   </div>
     )

@@ -1,10 +1,19 @@
 import React from "react"
 import style from "./Post.module.css"
 
-const Post = (props) =>{
+let postData = [
+	{id: 1, postText : "My first Post"},
+	{id: 2, postText : "My second Post"},
+	{id: 3, postText : "Something else"},
+	{id: 4, postText : "etc..."}
+]
+
+let postElements = postData.map(el => <div className = {style.post}>{el.postText}</div>)
+
+const Post = () =>{
   return(
     <div className = {style.wrapper}>
-    	<div className = {style.post}>{props.message}</div>
+    	{postElements}	
     </div>
     )
 }
