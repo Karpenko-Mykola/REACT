@@ -3,7 +3,7 @@ import style from "./Content.module.css";
 import MyPosts from '../MyPosts/MyPosts.jsx';
 
 
-const Content = () => {
+const Content = (props) => {
   return(
     <div className = {style.wrapper}>
     	<img className = {style.content_img}src="https://funart.pro/uploads/posts/2021-03/thumbs/1617061766_47-p-oboi-oboi-peizazh-47.jpg" alt="img"/>
@@ -17,7 +17,7 @@ const Content = () => {
     			<p className = {style.person_descr_info}>Web Site : karpenko.n.an@gmail.com</p>	
     		</div>
     	</div>
-        <MyPosts/>
+        <MyPosts state = {props.state}/>
     </div>
     )
 }
