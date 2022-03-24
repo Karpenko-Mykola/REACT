@@ -1,11 +1,14 @@
+import {reranderEntireTree} from '../render.js'
+
 let state = {
 	profilePage : {
 		postData: [
-		{id: 1, postText : "My first Post"},
-		{id: 2, postText : "My second Post"},
-		{id: 3, postText : "Something else"},
-		{id: 4, postText : "Repeat"},
+		{id: 4, postText : "My first Post"},
+		{id: 3, postText : "My second Post"},
+		{id: 2, postText : "Something else"},
+		{id: 1, postText : "Repeat"},
 		],
+		postAreaValue : "",
 	},
 	dialogsPage : 
 	{
@@ -25,6 +28,21 @@ let state = {
 		]
 	}
 }
+
+export let postOnChange = (e) => {
+			state.profilePage.postAreaValue = e.target.value;
+			reranderEntireTree(state);
+
+}
+
+export let postOnClick = () => {
+	let newPost = {id : state.profilePage.postData.length+1 , postText: state.profilePage.postAreaValue}
+	state.profilePage.postData.unshift(newPost);
+	reranderEntireTree(state);
+	state.profilePage.postAreaValue = "";
+}
+
+
 
 export default state;	
 
