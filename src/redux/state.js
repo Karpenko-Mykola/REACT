@@ -1,7 +1,6 @@
-import {reranderEntireTree} from '../render.js'
-
-let state = {
-	profilePage : {
+let store = {
+	_state : {
+		profilePage : {
 		postData: [
 		{id: 4, postText : "My first Post"},
 		{id: 3, postText : "My second Post"},
@@ -9,9 +8,8 @@ let state = {
 		{id: 1, postText : "Repeat"},
 		],
 		postAreaValue : "",
-	},
-	dialogsPage : 
-	{
+		},
+		dialogsPage : {
 		friendsData : [
 			{id: 1, name: "Mykola", message1 : "Hello", message2 : "How are you?"},
 			{id: 2, name: "Vasiliy", message1 : "somethink", message2 : "else"},
@@ -26,23 +24,28 @@ let state = {
 			{id: 2, message : "Second message"},
 			{id: 3, message : "All Right"},
 		]
+		},
+	},
+	getState(){
+		return this._state;
+	},
+	Reload(){},
+	subscriber(observer){
+		this.Reload = observer;
+	},
+	postOnChange(e){
+		this._state.profilePage.postAreaValue = e.target.value;
+		this.Reload(this._state);
+
+	},
+	postOnClick(){
+		let newPost = {id : this._state.profilePage.postData.length+1 , postText: this._state.profilePage.postAreaValue}
+		this._state.profilePage.postData.unshift(newPost);
+		this.Reload(this._state);
+		this._state.profilePage.postAreaValue = ""; 
 	}
 }
 
-export let postOnChange = (e) => {
-			state.profilePage.postAreaValue = e.target.value;
-			reranderEntireTree(state);
-
-}
-
-export let postOnClick = () => {
-	let newPost = {id : state.profilePage.postData.length+1 , postText: state.profilePage.postAreaValue}
-	state.profilePage.postData.unshift(newPost);
-	reranderEntireTree(state);
-	state.profilePage.postAreaValue = "";
-}
-
-
-
-export default state;	
+window.state = store.getState();
+export default store;	
 

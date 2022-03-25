@@ -17,7 +17,9 @@ const Content = (props) => {
     			<p className = {style.person_descr_info}>Web Site : karpenko.n.an@gmail.com</p>	
     		</div>
     	</div>
-        <MyPosts state = {props.state}/>
+        <MyPosts state = {props.state}
+                 onChange = {props.onChange}
+                 onClick = {props.onClick}/>
     </div>
     )
 }
