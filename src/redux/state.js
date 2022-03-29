@@ -10,6 +10,7 @@ let store = {
 		postAreaValue : "",
 		},
 		dialogsPage : {
+		dialogAraeValue: "",	
 		friendsData : [
 			{id: 1, name: "Mykola", message1 : "Hello", message2 : "How are you?"},
 			{id: 2, name: "Vasiliy", message1 : "somethink", message2 : "else"},
@@ -33,17 +34,32 @@ let store = {
 	subscriber(observer){
 		this.Reload = observer;
 	},
-	postOnChange(e){
-		this._state.profilePage.postAreaValue = e.target.value;
-		this.Reload(this._state);
 
-	},
-	postOnClick(){
-		let newPost = {id : this._state.profilePage.postData.length+1 , postText: this._state.profilePage.postAreaValue}
-		this._state.profilePage.postData.unshift(newPost);
-		this.Reload(this._state);
-		this._state.profilePage.postAreaValue = ""; 
-	}
+	dispatch(action){
+		debugger
+		switch(action.type){
+			case "POST-INPUT-CHANGE": 
+				this._state.profilePage.postAreaValue = action.newText;
+				this.Reload(this._state);	
+				break;
+			case "ADD-POST": 
+				let newPost = {id : this._state.profilePage.postData.length+1 , postText: this._state.profilePage.postAreaValue}
+				this._state.profilePage.postData.unshift(newPost);
+				this._state.profilePage.postAreaValue = "";	
+				this.Reload(this._state);
+				break;
+			case "DIALOG-INPUT-CHANGE":
+				this._state.dialogsPage.dialogAraeValue = action.newText;
+				this.Reload(this._state);
+				break;
+			case "ADD-MESSAGE":
+				let newMessage = {id: this._state.dialogsPage.messageData.length+1, message: this._state.dialogsPage.dialogAraeValue}
+				this._state.dialogsPage.messageData.push(newMessage);
+				this._state.dialogsPage.dialogAraeValue = "";
+				this.Reload(this._state);
+				break;	
+		}
+	},	
 }
 
 window.state = store.getState();

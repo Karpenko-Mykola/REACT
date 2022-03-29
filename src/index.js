@@ -7,8 +7,7 @@ import App from './components/App/App.jsx';
 let reranderEntireTree = (state) =>{
 	ReactDOM.render(
    		 <App state = {state}
-   		 	  onChange = {store.postOnChange.bind(store)}
-   		 	  onClick = {store.postOnClick.bind(store)} />,
+   		 	  dispatch = {store.dispatch.bind(store)} />,
  	 document.getElementById('root')
 
 	);

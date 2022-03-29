@@ -18,8 +18,7 @@ const Content = (props) => {
     		</div>
     	</div>
         <MyPosts state = {props.state}
-                 onChange = {props.onChange}
-                 onClick = {props.onClick}/>
+                 dispatch = {props.dispatch}/>
     </div>
     )
 }
