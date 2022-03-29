@@ -1,3 +1,11 @@
+const ADD_POST = "ADD-POST";
+const ADD_MESSAGE = "ADD-MESSAGE";
+const POST_INPUT_CHANGE = "POST-INPUT-CHANGE";
+const DIALOG_INPUT_CHANGE = "DIALOG-INPUT-CHANGE";
+
+
+
+
 let store = {
 	_state : {
 		profilePage : {
@@ -38,21 +46,21 @@ let store = {
 	dispatch(action){
 		debugger
 		switch(action.type){
-			case "POST-INPUT-CHANGE": 
+	        case POST_INPUT_CHANGE: 
 				this._state.profilePage.postAreaValue = action.newText;
 				this.Reload(this._state);	
 				break;
-			case "ADD-POST": 
+			case ADD_POST: 
 				let newPost = {id : this._state.profilePage.postData.length+1 , postText: this._state.profilePage.postAreaValue}
 				this._state.profilePage.postData.unshift(newPost);
 				this._state.profilePage.postAreaValue = "";	
 				this.Reload(this._state);
 				break;
-			case "DIALOG-INPUT-CHANGE":
+			case DIALOG_INPUT_CHANGE:
 				this._state.dialogsPage.dialogAraeValue = action.newText;
 				this.Reload(this._state);
 				break;
-			case "ADD-MESSAGE":
+			case ADD_MESSAGE:
 				let newMessage = {id: this._state.dialogsPage.messageData.length+1, message: this._state.dialogsPage.dialogAraeValue}
 				this._state.dialogsPage.messageData.push(newMessage);
 				this._state.dialogsPage.dialogAraeValue = "";
@@ -61,6 +69,11 @@ let store = {
 		}
 	},	
 }
+
+export const addMessageactionCreator = () => ({type: ADD_MESSAGE })
+export const messageInputChangeActionCreator = (text) => ({type: DIALOG_INPUT_CHANGE, newText : text})
+export const addPostActionCreator = () => ({type: ADD_POST})
+export const postInputChangeActionCreator = (text) => ({type: POST_INPUT_CHANGE, newText : text})
 
 window.state = store.getState();
 export default store;	
