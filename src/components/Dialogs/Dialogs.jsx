@@ -8,6 +8,7 @@ import {messageInputChangeActionCreator} from "../../redux/dialog-reducer";
 
 
 const Dialogs = (props) =>{
+	debugger
 	let Navigate = props.state.friendsData.map(el => <NavLink to = {`/dialogs/${el.id}`} className = {navData => navData.isActive? style.dialogs_items_link_active : style.dialogs_items_link}> {el.name} </NavLink> )
 	let Messages = props.state.messageData.map(el => <Dialog message = {el.message}/>)
 	return(

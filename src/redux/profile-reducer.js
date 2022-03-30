@@ -2,7 +2,17 @@ const ADD_POST = "ADD-POST";
 const POST_INPUT_CHANGE = "POST-INPUT-CHANGE";
 
 
-export const profileReducer = (state, action) => {
+let initialState = {
+	postData: [
+		{id: 4, postText : "My first Post"},
+		{id: 3, postText : "My second Post"},
+		{id: 2, postText : "Something else"},
+		{id: 1, postText : "Repeat"},
+	],
+	postAreaValue : "",
+};
+
+export const profileReducer = (state = initialState, action) => {
 	switch(action.type){
 	    case POST_INPUT_CHANGE: 
 			state.postAreaValue = action.newText;	
