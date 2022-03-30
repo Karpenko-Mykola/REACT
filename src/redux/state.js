@@ -1,10 +1,5 @@
-const ADD_POST = "ADD-POST";
-const ADD_MESSAGE = "ADD-MESSAGE";
-const POST_INPUT_CHANGE = "POST-INPUT-CHANGE";
-const DIALOG_INPUT_CHANGE = "DIALOG-INPUT-CHANGE";
-
-
-
+import {profileReducer} from "./profile-reducer";
+import {dialogReducer} from "./dialog-reducer"
 
 let store = {
 	_state : {
@@ -44,36 +39,14 @@ let store = {
 	},
 
 	dispatch(action){
-		debugger
-		switch(action.type){
-	        case POST_INPUT_CHANGE: 
-				this._state.profilePage.postAreaValue = action.newText;
-				this.Reload(this._state);	
-				break;
-			case ADD_POST: 
-				let newPost = {id : this._state.profilePage.postData.length+1 , postText: this._state.profilePage.postAreaValue}
-				this._state.profilePage.postData.unshift(newPost);
-				this._state.profilePage.postAreaValue = "";	
-				this.Reload(this._state);
-				break;
-			case DIALOG_INPUT_CHANGE:
-				this._state.dialogsPage.dialogAraeValue = action.newText;
-				this.Reload(this._state);
-				break;
-			case ADD_MESSAGE:
-				let newMessage = {id: this._state.dialogsPage.messageData.length+1, message: this._state.dialogsPage.dialogAraeValue}
-				this._state.dialogsPage.messageData.push(newMessage);
-				this._state.dialogsPage.dialogAraeValue = "";
-				this.Reload(this._state);
-				break;	
-		}
+		this._state.profilePage = profileReducer(this._state.profilePage, action);
+		this._state.dialogsPage = dialogReducer(this._state.dialogsPage, action);
+		this.Reload(this._state);
 	},	
 }
 
-export const addMessageactionCreator = () => ({type: ADD_MESSAGE })
-export const messageInputChangeActionCreator = (text) => ({type: DIALOG_INPUT_CHANGE, newText : text})
-export const addPostActionCreator = () => ({type: ADD_POST})
-export const postInputChangeActionCreator = (text) => ({type: POST_INPUT_CHANGE, newText : text})
+
+
 
 window.state = store.getState();
 export default store;	

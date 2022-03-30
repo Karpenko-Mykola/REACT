@@ -2,8 +2,8 @@ import React from 'react';
 import style from './Dialogs.module.css';
 import {NavLink} from 'react-router-dom';
 import Dialog from '../Dialog/Dialog.jsx';
-import {addMessageactionCreator} from "../../redux/state";
-import {messageInputChangeActionCreator} from "../../redux/state";
+import {addMessageactionCreator} from "../../redux/dialog-reducer";
+import {messageInputChangeActionCreator} from "../../redux/dialog-reducer";
 
 
 
