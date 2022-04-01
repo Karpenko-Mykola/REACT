@@ -1,18 +1,21 @@
 import MyPosts from "./MyPosts/MyPosts";
 import {addPostActionCreator, postInputChangeActionCreator} from "../../redux/profile-reducer";
+import {connect} from "react-redux";
 
-const MyPostContainer = (props) => {
-    const onClick = () => {
-        props.store.dispatch(addPostActionCreator())
-    }
 
-    const changeInputValue = (value) => {
-        props.store.dispatch(postInputChangeActionCreator(value))
+const mapStateToProps = (state) =>{
+    return{data: state.profilePage}
+}
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        changeInputValue(value){
+            dispatch(postInputChangeActionCreator(value))
+        },
+        onClick(){
+            dispatch(addPostActionCreator())
+        },
     }
-    return (
-        <MyPosts onClick={onClick} changeInputValue={changeInputValue} data={props.store.getState().profilePage}/>
-    )
 }
 
-
+const MyPostContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 export default MyPostContainer

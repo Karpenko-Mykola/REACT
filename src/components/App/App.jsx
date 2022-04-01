@@ -15,8 +15,8 @@ const App = (props) => {
     		<div className = {style.content_wrapper}>
     			<Sidebar/>
     			<Routes>
-    				<Route path ='/profile/*' element = {<Content store = {props.store} />}	/>
-    				<Route path ='/dialogs/*' element = {<DialogsContainer store = {props.store}/>} />
+    				<Route path ='/profile/*' element = {<Content />}	/>
+    				<Route path ='/dialogs/*' element = {<DialogsContainer />} />
     			</Routes>
    			</div>
     	</div>

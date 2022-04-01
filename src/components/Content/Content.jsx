@@ -17,7 +17,7 @@ const Content = (props) => {
     			<p className = {style.person_descr_info}>Web Site : karpenko.n.an@gmail.com</p>	
     		</div>
     	</div>
-        <MyPostContainer store = {props.store}/>
+        <MyPostContainer />
     </div>
     )
 }

@@ -14,14 +14,19 @@ let initialState = {
 
 export const profileReducer = (state = initialState, action) => {
 	switch(action.type){
-	    case POST_INPUT_CHANGE: 
-			state.postAreaValue = action.newText;	
-			return state;
-		case ADD_POST: 
-			let newPost = {id : state.postData.length+1 , postText: state.postAreaValue}
-			state.postData.unshift(newPost);
-			state.postAreaValue = "";	
-			return state;
+	    case POST_INPUT_CHANGE: {
+	    	let newState = {...state}
+			newState.postAreaValue = action.newText;
+			return newState;
+		}
+		case ADD_POST: {
+			let newState = {...state}
+			let newPost = {id: state.postData.length + 1, postText: state.postAreaValue}
+			newState.postData = [...state.postData]
+			newState.postData.unshift(newPost);
+			newState.postAreaValue = "";
+			return newState;
+		}
 		default:
 			return state;	
 	}
