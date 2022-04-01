@@ -35,4 +35,4 @@ export const dialogReducer = (state = initialState, action) => {
 }
 
 export const addMessageactionCreator = () => ({type: ADD_MESSAGE })
-export const messageInputChangeActionCreator = (text) => ({type: DIALOG_INPUT_CHANGE, newText : text})
+export const messageInputChangeActionCreator = (value) => ({type: DIALOG_INPUT_CHANGE, newText : value})

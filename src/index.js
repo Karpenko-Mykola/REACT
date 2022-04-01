@@ -4,17 +4,15 @@ import ReactDOM from 'react-dom';
 import App from './components/App/App.jsx';
 
 
-let reranderEntireTree = (state) =>{
+let reranderEntireTree = (store) =>{
 	ReactDOM.render(
-   		 <App state = {state}
-   		 	  dispatch = {store.dispatch.bind(store)} />,
+   		 <App store = {store} />,
  	 document.getElementById('root')
 
 	);
 }
-reranderEntireTree(store.getState());
+reranderEntireTree(store);
 
 store.subscribe( () => {
-	let state = store.getState();
-	reranderEntireTree(state);
+	reranderEntireTree(store);
 });

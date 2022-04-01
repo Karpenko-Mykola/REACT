@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./Content.module.css";
-import MyPosts from '../MyPosts/MyPosts.jsx';
+import MyPostContainer from "../MyPostsContainer/MyPostContainer";
 
 
 const Content = (props) => {
@@ -17,8 +17,7 @@ const Content = (props) => {
     			<p className = {style.person_descr_info}>Web Site : karpenko.n.an@gmail.com</p>	
     		</div>
     	</div>
-        <MyPosts state = {props.state}
-                 dispatch = {props.dispatch}/>
+        <MyPostContainer store = {props.store}/>
     </div>
     )
 }
