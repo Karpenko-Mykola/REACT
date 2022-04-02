@@ -1,5 +1,5 @@
 import MyPosts from "./MyPosts/MyPosts";
-import {addPostActionCreator, postInputChangeActionCreator} from "../../redux/profile-reducer";
+import {addPostActionCreator, postInputChangeActionCreator} from "../../redux/reducers/profile-reducer";
 import {connect} from "react-redux";
 
 
