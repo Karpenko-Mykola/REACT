@@ -57,3 +57,15 @@
     margin-top: 10px;
     font-size: 24px;
 }
+.pagination{
+    text-align: center;
+    margin: 10px;
+}
+.pagination span{
+    cursor: pointer;
+    margin: 10px;
+}
+.active{
+    font-size: 30px;
+    color: red;
+}
