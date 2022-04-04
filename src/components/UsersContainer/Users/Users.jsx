@@ -1,6 +1,7 @@
 import style from "./Users.module.css"
 import React from "react"
 import noAva from "../../../assets/images/25333.png"
+import Preloader from "../../Preloader/Preloader";
 
 const Users = (props) => {
     let pageCount = Math.ceil(props.totalCount / props.pageSize);
@@ -15,6 +16,9 @@ const Users = (props) => {
     return (
         <div className={style.wrapper}>
             <h3 className={style.header}> USERS</h3>
+            <div calssName = {style.preloader}>
+                {(props.isFetching) ? <Preloader/> : null}
+            </div>
             <div className={style.wrapper_users}>
                 {props.data.map(el =>
                     <div className={style.user}>

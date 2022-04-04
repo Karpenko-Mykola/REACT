@@ -17,6 +17,9 @@
     margin: 20px;
 
 }
+.preloader{
+    border: 1px solid green;
+}
 
 .user{
     border: 3px solid grey;
