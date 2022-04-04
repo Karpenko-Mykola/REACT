@@ -7,7 +7,7 @@ const SAT_CURRENT_PAGE = "SAT_CURRENT_PAGE";
 let initialState = {
     pageSize: 10,
     totalCount: 0,
-    page: 2,
+    page: 1,
     users: [],
 };
 
