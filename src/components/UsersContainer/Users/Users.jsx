@@ -17,7 +17,7 @@ const Users = (props) => {
     return (
         <div className={style.wrapper}>
             <h3 className={style.header}> USERS</h3>
-            <div calssName = {style.preloader}>
+            <div className = {style.preloader}>
                 {(props.isFetching) ? <Preloader/> : null}
             </div>
             <div className={style.wrapper_users}>

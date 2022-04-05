@@ -25,7 +25,8 @@ function withRouter(Component) {
 
 class ProfileAPI extends React.Component {
     componentDidMount() {
-        let userId = this.props.router.params.userId || 5000;
+        let userId = this.props.router.params.userId || 15746;
+        debugger
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(response => {
             console.log(response.data)
             this.props.setProfile(response.data);
@@ -46,7 +47,10 @@ class ProfileAPI extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {data: state.profilePage}
+    return {
+        data: state.profilePage,
+        userID: state.auth.id
+    }
 }
 
 const withRouterProfile = withRouter(ProfileAPI);
