@@ -2,6 +2,7 @@ import style from "./Users.module.css"
 import React from "react"
 import noAva from "../../../assets/images/25333.png"
 import Preloader from "../../Preloader/Preloader";
+import {NavLink} from "react-router-dom";
 
 const Users = (props) => {
     let pageCount = Math.ceil(props.totalCount / props.pageSize);
@@ -23,7 +24,9 @@ const Users = (props) => {
                 {props.data.map(el =>
                     <div className={style.user}>
                         <div className={style.ava}>
-                            <img src={el.photos.small || noAva} alt="ava..."/>
+                            <NavLink to={`/profile/${el.id}`}>
+                                <img src={el.photos.small || noAva} alt="ava..."/>
+                            </NavLink>
                             {el.isFollow ? <button className={style.btn}
                                                    onClick={() => props.onClick(el.id)}>Unfollow</button> :
                                 <button className={style.btn}

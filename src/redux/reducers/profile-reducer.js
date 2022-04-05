@@ -1,8 +1,9 @@
 const ADD_POST = "ADD-POST";
 const POST_INPUT_CHANGE = "POST-INPUT-CHANGE";
-
+const SET_PROFILE = "SET_PROFILE";
 
 let initialState = {
+    profile: null,
     postData: [
         {id: 4, postText: "My first Post"},
         {id: 3, postText: "My second Post"},
@@ -27,10 +28,16 @@ export const profileReducer = (state = initialState, action) => {
                 postData: [{id, postText}, ...state.postData],
                 postAreaValue: "",
             }
+        case SET_PROFILE:
+            return{
+                ...state,
+                profile: action.profile,
+            }
         default:
             return state;
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST})
-export const postInputChangeActionCreator = (text) => ({type: POST_INPUT_CHANGE, newText: text})
+export const addPost = () => ({type: ADD_POST})
+export const setProfile = (profile) =>({type: SET_PROFILE, profile})
+export const postInputChange = (text) => ({type: POST_INPUT_CHANGE, newText: text})
