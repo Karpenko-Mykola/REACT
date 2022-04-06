@@ -4,6 +4,7 @@ import noAva from "../../../assets/images/25333.png"
 import Preloader from "../../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import * as axios from "axios";
+import {userAPI} from "../../../api/api";
 
 const Users = (props) => {
     let pageCount = Math.ceil(props.totalCount / props.pageSize);
@@ -30,27 +31,15 @@ const Users = (props) => {
                             </NavLink>
                             {el.followed ? <button className={style.btn}
                                                    onClick={() => {
-                                                       axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`,
-                                                           {
-                                                               withCredentials: true,
-                                                               headers: {
-                                                                   "API-KEY": "62252dbb-eb7a-4baf-ac9c-85592ca23274",
-                                                               }
-                                                           }).then(response => {
-                                                           if (response.data.resultCode == 0)
+                                                      userAPI.unfollow(el.id).then(response => {
+                                                           if (response.resultCode == 0)
                                                                props.onClick(el.id)
                                                        })
                                                    }}>Unfollow</button> :
                                 <button className={style.btn}
                                         onClick={() => {
-                                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {},
-                                                {
-                                                    withCredentials: true,
-                                                    headers: {
-                                                        "API-KEY": "62252dbb-eb7a-4baf-ac9c-85592ca23274",
-                                                    }
-                                                }).then(response => {
-                                                if (response.data.resultCode === 0)
+                                            userAPI.follow(el.id).then(response => {
+                                                if (response.resultCode == 0)
                                                     props.onClick(el.id)
                                             })
                                         }}>Follow</button>}

@@ -1,7 +1,7 @@
 import React from "react";
 import style from './UserProfile.module.css'
-import Preloader from "../Preloader/Preloader";
-import noAva from "../../assets/images/25333.png"
+import Preloader from "../../Preloader/Preloader";
+import noAva from "../../../assets/images/25333.png"
 
 const UserProfile = (props) => {
     if (!props.data)
