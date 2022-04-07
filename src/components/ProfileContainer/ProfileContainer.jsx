@@ -4,8 +4,8 @@ import {useLocation, useNavigate, useParams,} from "react-router-dom";
 import {connect} from "react-redux";
 import UserProfile from "./UserProfile/UserProfile";
 import MyPosts from "./MyPosts/MyPosts";
-import {addPost, postInputChange, setProfile} from "../../redux/reducers/profile-reducer";
-import {userAPI} from "../../api/api";
+import {addPost, getProfileTHUNK, postInputChange} from "../../redux/reducers/profile-reducer";
+
 
 function withRouter(Component) {
     function ComponentWithRouterProp(props) {
@@ -26,9 +26,7 @@ function withRouter(Component) {
 class ProfileAPI extends React.Component {
     componentDidMount() {
         let userId = this.props.router.params.userId || 15746;
-        userAPI.getProfile(userId).then(response => {
-            this.props.setProfile(response);
-        })
+        this.props.getProfileTHUNK(userId)
     }
 
     render() {
@@ -52,4 +50,5 @@ const mapStateToProps = (state) => {
 }
 
 const withRouterProfile = withRouter(ProfileAPI);
-export const ProfileContainer = connect(mapStateToProps, {addPost, setProfile, postInputChange})(withRouterProfile);
+export const ProfileContainer = connect(mapStateToProps,
+    {addPost, postInputChange, getProfileTHUNK})(withRouterProfile);

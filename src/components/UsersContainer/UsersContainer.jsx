@@ -1,47 +1,22 @@
 import {connect} from "react-redux";
-import {
-    followChange,
-    setUsers,
-    setTotalCount,
-    setCurrentPage,
-    toggleFetching
-} from "../../redux/reducers/users-reducer";
+import { getUsersTHUNK, followTHUNK} from "../../redux/reducers/users-reducer";
 import Users from "./Users/Users";
 import React from "react"
-import {userAPI} from "../../api/api";
 
 
 
 class UsersApi extends React.Component {
     componentDidMount() {
-        this.props.setUsers([]);
-        this.props.toggleFetching(true);
-        userAPI.getUsers(this.props.page, this.props.pageSize).then(response => {
-                this.props.setUsers(response.items);
-                this.props.setTotalCount(response.totalCount);
-                this.props.toggleFetching(false);
-            })
+        this.props.getUsersTHUNK(this.props.page, this.props.pageSize)
     }
 
     getPageUsers = (page) => {
-        this.props.setUsers([]);
-        this.props.toggleFetching(true);
-        this.props.setCurrentPage(page);
-        userAPI.getUsers(page, this.props.pageSize).then(response => {
-                this.props.setUsers(response.items);
-                this.props.setTotalCount(response.totalCount);
-                this.props.toggleFetching(false);
-            })
+        this.props.getUsersTHUNK(page, this.props.pageSize)
     }
 
     render() {
-        return <Users totalCount={this.props.totalCount}
-                      pageSize={this.props.pageSize}
-                      data={this.props.data}
-                      page={this.props.page}
-                      getPageUsers={this.getPageUsers}
-                      onClick={this.props.followChange}
-                      isFetching={this.props.isFetching}
+        return <Users {...this.props} getPageUsers={this.getPageUsers}
+
         />
     }
 }
@@ -54,15 +29,13 @@ const mapStateToProps = (state) => {
         totalCount: state.usersPage.totalCount,
         page: state.usersPage.page,
         isFetching: state.usersPage.isFetching,
+        followedUsers: state.usersPage.followedUsers,
 
     }
 }
 
 const UsersContainer = connect(mapStateToProps, {
-    followChange,
-    setUsers,
-    setTotalCount,
-    setCurrentPage,
-    toggleFetching
+    getUsersTHUNK,
+    followTHUNK
 })(UsersApi);
 export default UsersContainer

@@ -15,11 +15,9 @@ export const userAPI = {
     setAuthData() {
         return instance.get(`auth/me`).then(response => response.data)
     },
-    follow(id) {
-        return instance.post(`follow/${id}`).then(response => response.data)
-    },
-    unfollow(id) {
-        return instance.delete(`follow/${id}`).then(response => response.data)
+    follow(followed, id) {
+        if (followed) return instance.post(`follow/${id}`).then(response => response.data)
+        else return instance.delete(`follow/${id}`).then(response => response.data)
     },
     getProfile(id) {
         return instance.get(`profile/${id}`).then(response => response.data)

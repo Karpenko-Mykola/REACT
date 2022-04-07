@@ -1,3 +1,5 @@
+import {userAPI} from "../../api/api";
+
 const ADD_POST = "ADD-POST";
 const POST_INPUT_CHANGE = "POST-INPUT-CHANGE";
 const SET_PROFILE = "SET_PROFILE";
@@ -29,7 +31,7 @@ export const profileReducer = (state = initialState, action) => {
                 postAreaValue: "",
             }
         case SET_PROFILE:
-            return{
+            return {
                 ...state,
                 profile: action.profile,
             }
@@ -39,5 +41,12 @@ export const profileReducer = (state = initialState, action) => {
 }
 
 export const addPost = () => ({type: ADD_POST})
-export const setProfile = (profile) =>({type: SET_PROFILE, profile})
+export const setProfile = (profile) => ({type: SET_PROFILE, profile})
 export const postInputChange = (text) => ({type: POST_INPUT_CHANGE, newText: text})
+
+export const getProfileTHUNK = (id) => (dispatch) => {
+    userAPI.getProfile(id).then(response => {
+        dispatch(setProfile(response));
+    })
+}
+

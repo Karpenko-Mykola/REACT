@@ -3,14 +3,13 @@ import React from "react"
 import noAva from "../../../assets/images/25333.png"
 import Preloader from "../../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import * as axios from "axios";
-import {userAPI} from "../../../api/api";
+
 
 const Users = (props) => {
     let pageCount = Math.ceil(props.totalCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pageCount; i++) {
-        pages.push(<span className={i === props.page && style.active}
+        pages.push(<span className={i === props.page ? style.active : undefined}
                          onClick={() => props.getPageUsers(i)}> {i} </span>)
     }
     pages.splice(5, pages.length - 10, "....")
@@ -29,19 +28,16 @@ const Users = (props) => {
                             <NavLink to={`/profile/${el.id}`}>
                                 <img src={el.photos.small || noAva} alt="ava..."/>
                             </NavLink>
-                            {el.followed ? <button className={style.btn}
-                                                   onClick={() => {
-                                                      userAPI.unfollow(el.id).then(response => {
-                                                           if (response.resultCode == 0)
-                                                               props.onClick(el.id)
-                                                       })
-                                                   }}>Unfollow</button> :
-                                <button className={style.btn}
+                            {el.followed ?
+                                <button disabled={props.followedUsers.some(item => item == el.id)}
+                                        className={style.btn}
                                         onClick={() => {
-                                            userAPI.follow(el.id).then(response => {
-                                                if (response.resultCode == 0)
-                                                    props.onClick(el.id)
-                                            })
+                                            props.followTHUNK(false, el.id)
+                                        }}>Unfollow</button> :
+                                <button disabled={props.followedUsers.some(item => item == el.id)}
+                                        className={style.btn}
+                                        onClick={() => {
+                                            props.followTHUNK(true, el.id)
                                         }}>Follow</button>}
                         </div>
                         <div className={style.descr}>
