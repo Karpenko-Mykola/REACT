@@ -1,10 +1,11 @@
 import React from "react";
 import style from "./ProfileContainer.module.css"
-import {useLocation, useNavigate, useParams,} from "react-router-dom";
+import {Navigate , useLocation, useNavigate, useParams,} from "react-router-dom";
 import {connect} from "react-redux";
 import UserProfile from "./UserProfile/UserProfile";
 import MyPosts from "./MyPosts/MyPosts";
 import {addPost, getProfileTHUNK, postInputChange} from "../../redux/reducers/profile-reducer";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 
 function withRouter(Component) {
@@ -30,7 +31,9 @@ class ProfileAPI extends React.Component {
     }
 
     render() {
-        return <div className={style.wrapper}>
+        if(!this.props.isAuth)  return <Navigate  to={'/auth'}/>
+        return(
+        <div className={style.wrapper}>
             <img className={style.content_img}
                  src="https://funart.pro/uploads/posts/2021-03/thumbs/1617061766_47-p-oboi-oboi-peizazh-47.jpg"
                  alt="img"/>
@@ -39,16 +42,18 @@ class ProfileAPI extends React.Component {
                      changeInputValue={this.props.postInputChange}
                      onClick={this.props.addPost}/>
         </div>
+        )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         data: state.profilePage,
-        userID: state.auth.id
+        userID: state.auth.id,
+        isAuth : state.auth.isAuth,
     }
 }
 
 const withRouterProfile = withRouter(ProfileAPI);
-export const ProfileContainer = connect(mapStateToProps,
-    {addPost, postInputChange, getProfileTHUNK})(withRouterProfile);
+export const ProfileContainer = withAuthRedirect(connect(mapStateToProps,
+    {addPost, postInputChange, getProfileTHUNK})(withRouterProfile));

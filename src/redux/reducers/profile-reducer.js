@@ -3,9 +3,11 @@ import {userAPI} from "../../api/api";
 const ADD_POST = "ADD-POST";
 const POST_INPUT_CHANGE = "POST-INPUT-CHANGE";
 const SET_PROFILE = "SET_PROFILE";
+const SET_USER_ID = "SET_USER_ID";
 
 let initialState = {
     profile: null,
+    userId: null,
     postData: [
         {id: 4, postText: "My first Post"},
         {id: 3, postText: "My second Post"},
@@ -35,6 +37,11 @@ export const profileReducer = (state = initialState, action) => {
                 ...state,
                 profile: action.profile,
             }
+        case SET_USER_ID:
+            return{
+                ...state,
+                userId: action.userId,
+            }
         default:
             return state;
     }
@@ -43,8 +50,10 @@ export const profileReducer = (state = initialState, action) => {
 export const addPost = () => ({type: ADD_POST})
 export const setProfile = (profile) => ({type: SET_PROFILE, profile})
 export const postInputChange = (text) => ({type: POST_INPUT_CHANGE, newText: text})
+const setUserId = (id) => ({type: SET_USER_ID, id})
 
 export const getProfileTHUNK = (id) => (dispatch) => {
+    dispatch(setUserId(id))
     userAPI.getProfile(id).then(response => {
         dispatch(setProfile(response));
     })
