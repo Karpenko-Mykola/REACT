@@ -4,9 +4,9 @@ import Sidebar from '../Sidebar/Sidebar.jsx';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import DialogsContainer from "../DialogsContainer/DialogsContainer";
 import UsersContainer from "../UsersContainer/UsersContainer";
-import {ProfileContainer} from "../ProfileContainer/ProfileContainer";
 import HeaderContainer from "../Header/HeaderContainer.jsx";
 import Auth from "../Auth/Auth";
+import ProfileContainer from "../ProfileContainer/ProfileContainer";
 
 
 const App = () => {
