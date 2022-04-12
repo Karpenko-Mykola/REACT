@@ -14,8 +14,8 @@ function UserProfile(props) {
                  alt="ava"/>
             <div className={style.person_descr}>
                 <h3 className={style.person_descr_name}> {props.data.fullName}</h3>
-                {(props.data.userId === 15746) ? <ProfileStatus/> :
-                    <p className={style.person_descr_info}>{props.data.aboutMe || "NO STATUS(("}</p>}
+                {(props.data.userId === 15746) ? <ProfileStatus status = {props.status} setStatusTHUNK = {props.setStatusTHUNK}/> :
+                    <p className={style.person_descr_info}>{props.data.aboutMe || "no status((" }</p>}
                 <p className={style.person_descr_info}>Looking for a
                     job: {(props.data.lookingForAJob) ? "Yes" : "NO"}</p>
                 <p className={style.person_descr_info}>Web Site

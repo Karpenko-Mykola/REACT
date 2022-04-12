@@ -1,5 +1,4 @@
 import React from "react";
-import style from './Auth.module.css'
 
 const Auth = (props) => {
     return(

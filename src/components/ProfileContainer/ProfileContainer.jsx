@@ -4,7 +4,13 @@ import {Navigate , useLocation, useNavigate, useParams,} from "react-router-dom"
 import {connect} from "react-redux";
 import UserProfile from "./UserProfile/UserProfile";
 import MyPosts from "./MyPosts/MyPosts";
-import {addPost, getProfileTHUNK, postInputChange} from "../../redux/reducers/profile-reducer";
+import {
+    addPost,
+    getProfileTHUNK,
+    getStatusTHUNK,
+    postInputChange,
+    setStatusTHUNK
+} from "../../redux/reducers/profile-reducer";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
@@ -26,15 +32,21 @@ function withRouter(Component) {
 }
 
 class ProfileContainer extends React.Component {
-    componentDidMount() {
-        let userId = this.props.router.params.userId || 15746;
-        this.props.getProfileTHUNK(userId)
-    }
 
+    componentDidMount() {
+        let userId = this.props.router.params.userId || 15746 ;
+        this.props.getStatusTHUNK(userId);
+        this.props.getProfileTHUNK(userId);
+    }
+    state = {
+        userId: this.props.router.params.userId,
+        isAuth: this.props.isAuth
+    }
+    
     render() {
         return(
         <div className={style.wrapper}>
-            <UserProfile data={this.props.data.profile}/>
+            <UserProfile data={this.props.data.profile} status={this.props.status} setStatusTHUNK = {this.props.setStatusTHUNK}/>
             <MyPosts data={this.props.data}
                      changeInputValue={this.props.postInputChange}
                      onClick={this.props.addPost}/>
@@ -46,13 +58,14 @@ class ProfileContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         data: state.profilePage,
-        userID: state.auth.id,
+        userId: state.profilePage.userId,
         isAuth: state.auth.isAuth,
+        status: state.profilePage.status
     }
 }
 
 export default compose(
     withAuthRedirect,
-    connect(mapStateToProps,{addPost, postInputChange, getProfileTHUNK}),
+    connect(mapStateToProps,{addPost, postInputChange, getProfileTHUNK, getStatusTHUNK, setStatusTHUNK}),
     withRouter)
 (ProfileContainer)
