@@ -29,10 +29,19 @@ export const profileAPI = {
     getProfile(id) {
         return instance.get(`profile/${id}`).then(response => response.data)
     },
-    getStatus(id){
-        return instance.get('profile/status/'+id)
+    getStatus(id) {
+        return instance.get('profile/status/' + id)
     },
-    updateStatus(status){
+    updateStatus(status) {
         return instance.put('profile/status', {status: status})
     },
+}
+
+export const loginAPI = {
+    login(email, password, rememberMe){
+        return instance.post('/auth/login' , {email, password, rememberMe})
+    },
+    logout(){
+        return instance.delete('/auth/login')
+    }
 }

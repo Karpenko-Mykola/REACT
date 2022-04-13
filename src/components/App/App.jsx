@@ -5,8 +5,8 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import DialogsContainer from "../DialogsContainer/DialogsContainer";
 import UsersContainer from "../UsersContainer/UsersContainer";
 import HeaderContainer from "../Header/HeaderContainer.jsx";
-import Auth from "../Auth/Auth";
 import ProfileContainer from "../ProfileContainer/ProfileContainer";
+import {AuthContainer} from "../Auth/AuthContainer/AuthContainer";
 
 
 const App = () => {
@@ -21,13 +21,11 @@ const App = () => {
 					<Route path ='/profile/*' element = {<ProfileContainer />}/>
     				<Route path ='/dialogs/*' element = {<DialogsContainer />} />
 					<Route path ='/users/*' element = {<UsersContainer />} />
-					<Route path ='/auth' element = {<Auth/>}/>
+					<Route path ='/auth' element = {<AuthContainer />}/>
     			</Routes>
    			</div>
     	</div>
   	</BrowserRouter>
-  	
-  	
     );
 }
 

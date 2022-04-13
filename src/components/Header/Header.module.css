@@ -7,6 +7,15 @@
 	justify-content: space-between;
 }
 
+.log{
+	display: flex;
+}
+
+.log button{
+	margin-left: 40px;
+	cursor: pointer;
+}
+
 .header_img{
 	width: 105px;
 }

@@ -38,10 +38,6 @@ class ProfileContainer extends React.Component {
         this.props.getStatusTHUNK(userId);
         this.props.getProfileTHUNK(userId);
     }
-    state = {
-        userId: this.props.router.params.userId,
-        isAuth: this.props.isAuth
-    }
     
     render() {
         return(
