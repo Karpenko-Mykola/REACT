@@ -2,6 +2,7 @@ import React from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {Navigate} from "react-router-dom";
+import style from './Auth.module.css'
 
 const Auth = (props) => {
     if(props.isAuth) return <Navigate to={"/profile"}/>
@@ -14,14 +15,13 @@ const Auth = (props) => {
                     .required('Required'),
                 password: Yup.string().required("Please provide a valid password")
             })}
-            onSubmit={(values, {setSubmitting}) => {
-                console.log(values);
-                props.loginTHUNK(values)
-                setSubmitting(false);
+            onSubmit={(values, {resetForm} ) => {
+                props.loginTHUNK(values);
+                resetForm();
             }}
         >
             {formik => (
-                <form onSubmit={formik.handleSubmit}>
+                <form className = {style.wrapper} onSubmit={formik.handleSubmit}>
                     <label htmlFor="email">LOGIN</label>
                     <input
                         id="email"
