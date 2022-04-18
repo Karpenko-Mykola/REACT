@@ -9,7 +9,7 @@ const Users = (props) => {
     let pageCount = Math.ceil(props.totalCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pageCount; i++) {
-        pages.push(<span className={i === props.page ? style.active : undefined}
+        pages.push(<span key={i} className={i === props.page ? style.active : undefined}
                          onClick={() => props.getPageUsers(i)}> {i} </span>)
     }
     pages.splice(5, pages.length - 10, "....")
@@ -23,7 +23,7 @@ const Users = (props) => {
             </div>
             <div className={style.wrapper_users}>
                 {props.data.map(el =>
-                    <div className={style.user}>
+                    <div key={el.id} className={style.user}>
                         <div className={style.ava}>
                             <NavLink to={`/profile/${el.id}`}>
                                 <img src={el.photos.small || noAva} alt="ava..."/>

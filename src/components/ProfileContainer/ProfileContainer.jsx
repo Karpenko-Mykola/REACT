@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./ProfileContainer.module.css"
-import {Navigate , useLocation, useNavigate, useParams,} from "react-router-dom";
+import {Navigate, useLocation, useNavigate, useParams,} from "react-router-dom";
 import {connect} from "react-redux";
 import UserProfile from "./UserProfile/UserProfile";
 import MyPosts from "./MyPosts/MyPosts";
@@ -8,7 +8,7 @@ import {
     addPost,
     getProfileTHUNK,
     getStatusTHUNK,
-    postInputChange,
+    postInputChange, setAvaTHUNK,
     setStatusTHUNK
 } from "../../redux/reducers/profile-reducer";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
@@ -34,19 +34,30 @@ function withRouter(Component) {
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-        let userId = this.props.router.params.userId || 15746 ;
-        this.props.getStatusTHUNK(userId);
+        let userId = this.props.router.params.userId || 15746;
         this.props.getProfileTHUNK(userId);
+        this.props.getStatusTHUNK(userId);
     }
-    
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        let userId = this.props.router.params.userId || 15746;
+        if (prevProps.userId !== userId) {
+            this.props.getProfileTHUNK(userId);
+            this.props.getStatusTHUNK(userId);
+        }
+
+    }
+
     render() {
-        return(
-        <div className={style.wrapper}>
-            <UserProfile data={this.props.data.profile} status={this.props.status} setStatusTHUNK = {this.props.setStatusTHUNK}/>
-            <MyPosts data={this.props.data}
-                     changeInputValue={this.props.postInputChange}
-                     onClick={this.props.addPost}/>
-        </div>
+        return (
+            <div className={style.wrapper}>
+                <UserProfile data={this.props.data.profile} status={this.props.status}
+                             setStatusTHUNK={this.props.setStatusTHUNK}
+                             setAvaTHUNK={this.props.setAvaTHUNK}/>
+                <MyPosts data={this.props.data}
+                         changeInputValue={this.props.postInputChange}
+                         onClick={this.props.addPost}/>
+            </div>
         )
     }
 }
@@ -62,6 +73,9 @@ const mapStateToProps = (state) => {
 
 export default compose(
     withAuthRedirect,
-    connect(mapStateToProps,{addPost, postInputChange, getProfileTHUNK, getStatusTHUNK, setStatusTHUNK}),
+    connect(mapStateToProps, {
+        addPost, postInputChange, getProfileTHUNK, getStatusTHUNK,
+        setAvaTHUNK, setStatusTHUNK
+    }),
     withRouter)
 (ProfileContainer)

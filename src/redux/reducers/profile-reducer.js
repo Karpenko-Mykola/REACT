@@ -5,6 +5,7 @@ const POST_INPUT_CHANGE = "POST-INPUT-CHANGE";
 const SET_PROFILE = "SET_PROFILE";
 const SET_USER_ID = "SET_USER_ID";
 const SET_STATUS = "SET_STATUS";
+const profile_SET_AVA = "profile_SET_AVA"
 
 let initialState = {
     status: null,
@@ -49,10 +50,18 @@ export const profileReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status,
             }
+        case profile_SET_AVA: {
+            return {
+                ...state,
+               profile: {...state.profile, photos: action.file},
+            }
+        }
         default:
             return state;
     }
 }
+
+export const profileSETAVA = (file) => ({type: profile_SET_AVA, file})
 export const setStatus = (status) => ({type: SET_STATUS, status})
 export const addPost = () => ({type: ADD_POST})
 export const setProfile = (profile) => ({type: SET_PROFILE, profile})
@@ -61,7 +70,7 @@ const setUserId = (id) => ({type: SET_USER_ID, id})
 
 export const getProfileTHUNK = (id) => (dispatch) => {
     dispatch(setUserId(id))
-    userAPI.getProfile(id).then(response => {
+    profileAPI.getProfile(id).then(response => {
         dispatch(setProfile(response));
     })
 }
@@ -76,5 +85,12 @@ export const getStatusTHUNK = (id) => (dispatch) => {
 export const setStatusTHUNK = (status) => (dispatch) => {
     profileAPI.updateStatus(status).then(response => {
         if(response.data.resultCode === 0) dispatch(setStatus(status))
+    })
+}
+
+export const setAvaTHUNK = (file) => (dispatch) => {
+    profileAPI.setAva(file).then(response => {
+    if(response.resultCode === 0)
+        dispatch(profileSETAVA(response.data.photos))
     })
 }

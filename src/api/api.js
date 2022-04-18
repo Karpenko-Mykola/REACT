@@ -35,13 +35,19 @@ export const profileAPI = {
     updateStatus(status) {
         return instance.put('profile/status', {status: status})
     },
+    setAva(file) {
+        const formData = new FormData();
+        formData.append("image", file)
+        return instance.put('./profile/photo', formData, {"Content-Type": "multipart/form-data"})
+            .then(response => response.data)
+    }
 }
 
 export const loginAPI = {
-    login(email, password, rememberMe){
-        return instance.post('/auth/login' , {email, password, rememberMe})
+    login(email, password, rememberMe) {
+        return instance.post('/auth/login', {email, password, rememberMe})
     },
-    logout(){
+    logout() {
         return instance.delete('/auth/login')
     }
 }
