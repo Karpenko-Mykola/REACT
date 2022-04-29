@@ -1,38 +1,30 @@
 .wrapper{
-	width: 100%;
-	height: 60px;
-	background-color: #42b340;
-	margin-bottom: 10px;
-	display: flex;
-	justify-content: space-between;
+    height: 50px;
+    background-color: #7be07f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+img{
+    height: 50px;
+    display: block;
+}
+h2{
+    cursor: pointer;
+    margin-right: 40px;
+    color: white;
 }
 
-.log{
-	display: flex;
+h2:hover{
+    text-decoration: underline;
 }
 
-.log button{
-	margin-left: 40px;
-	cursor: pointer;
+.logout{
+    color: white;
+    text-align: center;
+    cursor: pointer;
 }
 
-.header_img{
-	width: 105px;
-}
-
-.login{
-	color: white;
-	font-size: 50px;
-	margin: 0;
-}
-.link{
-	text-decoration: none;
-	font-size: 30px;
-	margin-top: 10px;
-	color: white;
-	margin-right: 30px;
-}
-
-.link:hover{
-	text-decoration: underline;
+.logout:hover{
+    text-decoration: underline;
 }

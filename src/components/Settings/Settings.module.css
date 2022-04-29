@@ -1,0 +1,53 @@
+.preloader{
+    height: 90vh;
+}
+
+.avatar img{
+    width: 200px;
+    height: 250px;
+}
+
+.avatar input{
+    margin-top: 20px;
+}
+
+.avatar button,
+.status button,
+.form_wrapper button{
+    display: block;
+    margin-top: 20px;
+    padding: 10px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    background-color: #7be07f;
+    border: none;
+}
+.wrapper h3{
+    margin: 20px;
+    font-size: 24px;
+}
+
+.field{
+    display: block;
+    margin-bottom: 20px;
+    width: 300px;
+    height: 30px;
+    border: 1px solid silver;
+    font-size: 24px;
+}
+
+.label{
+    margin-bottom: 10px;
+}
+.success{
+    display: inline-block;
+    color: green;
+    font-size: 28px;
+}
+
+.error{
+    display: inline;
+    color: red;
+    font-size: 28px;
+}

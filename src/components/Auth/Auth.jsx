@@ -1,59 +1,57 @@
-import React from 'react';
-import {Formik} from 'formik';
-import * as Yup from 'yup';
+import React from "react"
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import s from "./Auth.module.css"
+import {useDispatch, useSelector} from "react-redux";
+import {loginThunk} from "../../Redux/reducers/auth-reducer";
 import {Navigate} from "react-router-dom";
-import style from './Auth.module.css'
 
-const Auth = (props) => {
-    if(props.isAuth) return <Navigate to={"/profile"}/>
+const Auth = () => {
+    const dispatch = useDispatch()
+    const userID = useSelector((state) => state.auth.id)
+    const captcha = useSelector(state => state.auth.captchaUrl)
+
+    if (userID) return <Navigate to={'/profile'}/>
     return (
-        <Formik
-            initialValues={{email: '', password: '', rememberMe: false}}
-            validationSchema={Yup.object({
-                email: Yup.string()
-                    .max(25, 'Must be 25 characters or less')
-                    .required('Required'),
-                password: Yup.string().required("Please provide a valid password")
-            })}
-            onSubmit={(values, {resetForm} ) => {
-                props.loginTHUNK(values);
-                resetForm();
-            }}
-        >
-            {formik => (
-                <form className = {style.wrapper} onSubmit={formik.handleSubmit}>
-                    <label htmlFor="email">LOGIN</label>
-                    <input
-                        id="email"
-                        type="text"
-                        {...formik.getFieldProps('email')}
-                    />
-                    {formik.touched.email && formik.errors.email ? (
-                        <div>{formik.errors.email}</div>
-                    ) : null}
-
-                    <label htmlFor="password">PASSWORD</label>
-                    <input
-                        id="password"
-                        type="password"
-                        {...formik.getFieldProps('password')}
-                    />
-                    {formik.touched.password && formik.errors.password ? (
-                        <div>{formik.errors.password}</div>
-                    ) : null}
-
-                    <label htmlFor="rememberMe">REMEMBER ME</label>
-                    <input
-                        type="checkbox"
-                        id="rememberMe"
-                        {...formik.getFieldProps('rememberMe')}
-                    />
-
-                    <button type="submit">Submit</button>
-                </form>
-            )}
-        </Formik>
-    );
-};
+        <div className={s.wrapper}>
+            <Formik
+                initialValues={{email: '', password: '', rememberMe: false, captcha: ''}}
+                validate={values => {
+                    const errors = {};
+                    if (!values.email) {
+                        errors.email = 'This field can not be required'
+                    } else if (
+                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                    ) {
+                        errors.email = 'Invalid email address';
+                    }
+                    return errors;
+                }}
+                onSubmit={(values,) => {
+                    dispatch(loginThunk(values))
+                }}
+            >
+                {({isSubmitting}) => (
+                    <Form>
+                        <div className={s.label}>EMAIL:</div>
+                        <Field className={s.field} type="email" name="email"/>
+                        <ErrorMessage className={s.error} name="email" component="div"/>
+                        <div className={s.label}>PASSWORD:</div>
+                        <Field className={s.field} type="password" name="password"/>
+                        <ErrorMessage name="password" component="div"/>
+                        <div className={s.label}>REMEMBER ME?</div>
+                        <Field className={s.field} type="checkbox" name="rememberMe"/>
+                        {(captcha) ? <div className={s.captcha}>
+                            <img src={captcha} alt="captcha"/>
+                            <Field className={s.field} type="text" name="captcha"/>
+                        </div> : null}
+                        <button  type="submit" className={s.btn}>
+                            LOG IN
+                        </button>
+                    </Form>
+                )}
+            </Formik>
+        </div>
+    )
+}
 
 export default Auth

@@ -1,19 +1,43 @@
 .wrapper{
-    transform: translate(-400px, 100px);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.wrapper label{
+.field{
     display: block;
-    font-style: oblique;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 300px;
+    height: 30px;
+    border: 1px solid silver;
+    font-size: 24px;
 }
-.wrapper input{
+
+.btn{
     display: block;
-}
-.wrapper button{
+    margin: 0 auto;
+    padding: 10px 40px;
+    background-color: #7be07f;
+    color: #fff;
     cursor: pointer;
-    margin: 20px 0 0 30px;
-    padding: 5px 40px;
+    border: none;
+}
+.btn:hover{
+    background-color: #236325;
 }
 
+.error{
+    position: absolute;
+    color: Red;
+    top: -40px;
+}
+.captcha img{
+    width: 200px;
+    height: 80px;
+    display: block;
+    margin: 0 auto;
+}
+.label{
+    margin-bottom: 10px;
+}

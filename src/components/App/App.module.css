@@ -1,10 +1,18 @@
-.wrapper{
-	width: 1200px;
-	margin: 0 auto;
-
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-
-.content_wrapper{
-	display: flex;
-	justify-content: space-between;
+.wrapper{
+    width: 1200px;
+    margin: 0 auto;
+}
+.body{
+    display: flex;
+    justify-content: space-between;
+}
+.content{
+    margin-top: 5px;
+    width: 850px;
+    position: relative;
 }

@@ -1,32 +1,27 @@
 .wrapper{
-	width: 300px;
-	height: 100vh;
-	background-color: #42b340;
+    margin-top: 5px;
+    width: 300px;
+    height: 550px;
+    background-color: #7be07f;
 }
 
-.list_item{
-	padding-left: 40px;
-	display: block;
-	font-size: 24px;
-	text-decoration: none;
-	color: #fff;
-	margin-top: 15px;
-	cursor: pointer;
+.link{
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+    margin-left: 20px;
+    padding-top: 20px;
 }
 
-.list_item:hover{
-text-decoration: underline;
+.link:hover{
+    text-decoration: underline;
 }
-
-.list_item:last-child{
-margin-top: 40px;
-}
-
-.list_item_active{
-	padding-left: 40px;
-	display: block;
-	font-size: 24px;
-	text-decoration: none;
-	margin-top: 15px;
-	color: #a32110;
+.active_link{
+    display: block;
+    color: white;
+    font-size: 30px;
+    margin-left: 50px;
+    padding-top: 20px;
+    text-decoration: underline;
 }

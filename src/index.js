@@ -1,21 +1,16 @@
-import store from './redux/redux-store'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App/App.jsx';
 import {Provider} from "react-redux";
+import {store} from "./Redux/store";
+import {BrowserRouter} from "react-router-dom";
+import AppContainer from "./Components/App/App";
 
-
-let reranderEntireTree = (store) => {
-    ReactDOM.render(
+ReactDOM.render(
+    <BrowserRouter>
         <Provider store={store}>
-            <App/>
+            <AppContainer/>
         </Provider>
-        ,
-        document.getElementById('root')
-    );
-}
-reranderEntireTree(store);
-
-store.subscribe(() => {
-    reranderEntireTree(store);
-});
+    </BrowserRouter>
+    ,
+    document.getElementById('root')
+);

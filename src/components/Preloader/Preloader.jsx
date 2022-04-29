@@ -1,11 +1,11 @@
 import React from "react";
-import PreloaderIMG from "../../common/images/7YQl.gif"
+import Loader from "../../Images/giphy.gif"
+import s from './Preloader.module.css'
 
-
-let Preloader = () => {
-    return(
-        <div>
-            <img src={PreloaderIMG}  alt="Preloader"></img>
+const Preloader = () => {
+    return (
+        <div className={s.wrapper}>
+            <img src= {Loader} alt="Loading...."/>
         </div>
     )
 }

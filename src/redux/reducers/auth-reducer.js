@@ -1,51 +1,82 @@
-import {loginAPI, userAPI} from "../../api/api";
+import {LoginAPI} from "../../api/api";
 
-const SET_USERS_DATA = "SET_USERS_DATA";
+const Auth_SET_USERS_DATA = "Auth_SET_USERS_DATA"
+const Auth_SET_Initialized = "Auth_SET_Initialized"
+const Auth_Reset_Users_Data = "Auth_Reset_Users_Data"
+const Auth_SET_CaptchaUrl = 'Auth_SET_CaptchaUrl'
 
-let initialState = {
+const initialState = {
     id: null,
     email: null,
     login: null,
-    isAuth: false,
-};
+    isAuthorized: false,
+    isInitialized: true,
+    captchaUrl: null
+}
 
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_USERS_DATA:
+        case Auth_SET_USERS_DATA :
             return {
                 ...state,
-                ...action.data,
-                isAuth: action.isAuth
+                ...action.payload,
+                isAuthorized: true
+            }
+        case Auth_SET_Initialized:
+            return {
+                ...state,
+                isInitialized: false,
+            }
+        case Auth_Reset_Users_Data:
+            return {
+                ...state,
+                id: null,
+                email: null,
+                login: null,
+                isAuthorized: false,
+            }
+        case Auth_SET_CaptchaUrl:
+            return {
+                ...state,
+                captchaUrl: action.captchaUrl
             }
         default:
             return state
     }
 }
 
-export const setUserData = (data, isAuth) => ({type: SET_USERS_DATA, data, isAuth})
+const setUsersData = (payload) => ({type: Auth_SET_USERS_DATA, payload})
+const setInitialized = () => ({type: Auth_SET_Initialized})
+const resetUsersData = () => ({type: Auth_Reset_Users_Data})
+const setCaptchaUrl = (captchaUrl) => ({type: Auth_SET_CaptchaUrl, captchaUrl})
 
-export const isAuthTHUNK = () => (dispatch) => {
-    return userAPI.setAuthData().then(response => {
+export const isAuthorizedThunk = () => (dispatch) => {
+    LoginAPI.me().then((response) => {
         if (response.resultCode === 0)
-            dispatch(setUserData(response.data, true));
+            dispatch(setUsersData(response.data))
+        dispatch(setInitialized())
+
     })
 }
 
-export const loginTHUNK = (data) => (dispatch) => {
-    let email = data.email, password = data.password, rememberMe = data.rememberMe
-    loginAPI.login(email, password, rememberMe).then(response => {
-        if (response.data.resultCode === 0)
-            dispatch(isAuthTHUNK())
+export const loginThunk = (loginObj) => (dispatch) => {
+    LoginAPI.login(loginObj).then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(isAuthorizedThunk())
+            dispatch(setCaptchaUrl(null))
+        }
+        if (response.data.resultCode === 10)
+            dispatch(getCaptchaUrlThunk())
     })
 }
 
-export const logoutTHUNK = () => (dispatch) => {
-    loginAPI.logout().then(response => {
-        if (response.data.resultCode === 0)
-        dispatch(setUserData({
-            id: null,
-            email: null,
-            login: null,
-        }, false))
-    })
+export const logOutThunk = () => (dispatch) => {
+    LoginAPI.logout()
+    dispatch(resetUsersData())
 }
+
+export const getCaptchaUrlThunk = () => (dispatch) => {
+    LoginAPI.getCaptcha().then(response =>
+        dispatch(setCaptchaUrl(response.data.url)))
+}
+

@@ -1,0 +1,14 @@
+.preloader{
+    position: relative;
+    height: 90vh;
+}
+
+.wrapper{
+    display: flex;
+}
+
+.wrapper img{
+    width: 200px;
+    height: 300px;
+    margin-right: 30px;
+}

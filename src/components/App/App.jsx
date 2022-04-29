@@ -1,48 +1,46 @@
-import React from "react";
-import style from "./App.module.css";
-import Sidebar from '../Sidebar/Sidebar.jsx';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import DialogsContainer from "../DialogsContainer/DialogsContainer";
-import UsersContainer from "../UsersContainer/UsersContainer";
-import HeaderContainer from "../Header/HeaderContainer.jsx";
-import ProfileContainer from "../ProfileContainer/ProfileContainer";
-import {AuthContainer} from "../Auth/AuthContainer/AuthContainer";
-import {connect} from "react-redux";
-import {initializedTHUNK} from "../../redux/reducers/main-reducer";
+import React, {useEffect} from "react"
+import s from "./App.module.css"
+import {Routes, Route, Navigate} from "react-router-dom";
+import Header from "../Header/Header";
+import Sidebar from "../Sidebar/Sidebar";
+import ProfileContainer from "../Profile/Profile";
+import {useDispatch, useSelector} from "react-redux";
+import {isAuthorizedThunk} from "../../Redux/reducers/auth-reducer";
 import Preloader from "../Preloader/Preloader";
+import Auth from "../Auth/Auth";
+import UsersRouterContainer from "../UsersRouterContainer/UsersRouterContainer";
+import Settings from "../Settings/Settings";
 
+const AppContainer = () => {
+    const dispatch = useDispatch()
+    const isInitialized = useSelector((state) => state.auth.isInitialized)
 
+    useEffect(() => {
+            dispatch(isAuthorizedThunk())
+        }
+        , [dispatch])
 
-class App extends React.Component {
-	componentDidMount() {
-		this.props.initializedTHUNK()
-	}
-	render() {
-		if(this.props.initialized) return <Preloader/>
-		return (
-			<BrowserRouter>
-				<div className={style.wrapper}>
-					<HeaderContainer/>
-					<div className={style.content_wrapper}>
-						<Sidebar/>
-						<Routes>
-							<Route path='/profile/:userId' element={<ProfileContainer/>}/>
-							<Route path='/profile/*' element={<ProfileContainer/>}/>
-							<Route path='/dialogs/*' element={<DialogsContainer/>}/>
-							<Route path='/users/*' element={<UsersContainer/>}/>
-							<Route path='/auth' element={<AuthContainer/>}/>
-						</Routes>
-					</div>
-				</div>
-			</BrowserRouter>
-		);
-	}
+    if (isInitialized) return <div><Preloader/></div>
+    return <App/>
 }
+export default AppContainer
 
-let mapStateToProps = (state) => {
-	return {
-		initialized: state.app.initialized
-	}
+const App = () => {
+    return (
+        <div className={s.wrapper}>
+            <Header/>
+            <div className={s.body}>
+                <Sidebar/>
+                <div className={s.content}>
+                    <Routes>
+                        <Route path="/profile" element={<ProfileContainer/>}/>
+                        <Route path="/auth" element={<Auth/>}/>
+                        <Route path="/users/:userID" element={<UsersRouterContainer/>}/>
+                        <Route path="/users" element={<UsersRouterContainer/>}/>
+                        <Route path="/settings" element={<Settings/>}/>
+                    </Routes>
+                </div>
+            </div>
+        </div>
+    )
 }
-
-export default connect(mapStateToProps, {initializedTHUNK})(App)
